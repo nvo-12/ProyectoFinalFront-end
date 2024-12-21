@@ -16,6 +16,12 @@ const SIZE_CATEGORIES = {
         'rottweiler', 'doberman', 'bernese mountain dog', 'great dane', 'siberian husky'
     ]
 };
+// Lista de nombres comunes para perros
+const DOG_NAMES = [
+    'Luna', 'Thor', 'Nala', 'Kira', 'Coco', 'Max', 'Bruno', 'Lola', 'Simba', 'Rocky',
+    'Bella', 'Charlie', 'Milo', 'Lucy', 'Buddy', 'Daisy', 'Bailey', 'Sadie', 'Toby', 'Riley'
+];
+
 
 // Función para obtener la lista de razas
 async function fetchDogBreeds() {
@@ -30,6 +36,30 @@ async function fetchDogBreeds() {
         console.error(error);
         return [];
     }
+}
+function getRandomDogName() {
+    const randomIndex = Math.floor(Math.random() * DOG_NAMES.length);
+    return DOG_NAMES[randomIndex];
+}
+function getRandomDogAge() {
+    return Math.floor(Math.random() * 15) + 1; // Genera un número entre 1 y 15
+}
+function capitalizeBreedName(breed) {
+    return breed.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+function createDogCard(breed, image) {
+    const dogName = getRandomDogName();
+    const dogAge = getRandomDogAge();
+    const card = document.createElement('div');
+    card.classList.add('dog-card');
+    card.innerHTML = `
+        <img src="${image}" alt="${breed}">
+        <h3>${capitalizeBreedName(breed)}</h3>
+        <p>Nombre: ${dogName}</p>
+        <p>Edad: ${dogAge} años</p>
+    `;
+    return card;
 }
 
 // Función para obtener una imagen de una raza específica
@@ -68,3 +98,63 @@ function classifyBreeds(breeds) {
 
     return classified;
 }
+
+// Renderizar resultados en el DOM
+async function renderDogs(filterSize, breedFilter = '') {
+    const container = document.getElementById('dog-container');
+    container.innerHTML = ''; // Limpia los resultados previos
+
+    // Obtener la lista de razas
+    const breeds = await fetchDogBreeds();
+    const classifiedBreeds = classifyBreeds(breeds);
+
+    // Obtener razas filtradas
+    const filteredBreeds = filterSize ? classifiedBreeds[filterSize] : breeds;
+    const displayBreeds = filteredBreeds.slice(0, 8); // Limitar a 8 resultados
+
+    let found = false;
+
+    for (const breed of displayBreeds) {
+        // Filtrar por raza específica si aplica
+        if (breedFilter && !breed.toLowerCase().includes(breedFilter.toLowerCase())) {
+            continue;
+        }
+
+        found = true; // Marca que hay resultados
+
+        const image = await fetchDogImage(breed);
+        if (image) {
+            const card = createDogCard(breed, image);
+            container.appendChild(card);
+        }
+    }
+
+    // Si no se encuentra ninguna raza
+    if (!found) {
+        container.innerHTML = `<p>No se encontraron perros con los criterios seleccionados.</p>`;
+    }
+}
+
+// Crear tarjeta de perro
+function createDogCard(breed, image) {
+    const card = document.createElement('div');
+    card.classList.add('dog-card');
+    card.innerHTML = `
+        <img src="${image}" alt="${breed}">
+        <h3>${breed}</h3>
+    `;
+    return card;
+}
+
+// Manejador del formulario de filtros
+document.getElementById('filter-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const homeType = document.getElementById('home-type').value;
+    const breed = document.getElementById('breed').value.trim();
+
+    // Si no se ingresa raza, busca solo por tipo de domicilio
+    renderDogs(homeType, breed || '');
+});
+
+// Render inicial (sin filtros)
+renderDogs();

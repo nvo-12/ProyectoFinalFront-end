@@ -1,0 +1,127 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff6f61;
+    padding: 10px 20px;
+}
+
+.logo img{
+    height: 70px;
+    width: auto;
+}
+
+.menu {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    display: flex; /* Coloca los elementos de la lista en línea horizontal */
+    justify-content: space-around; /* Espacia los elementos uniformemente */
+}
+.menu li {
+    margin-right: 20px; /* Espacio entre los elementos del menú */
+}
+.menu li a {
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+.menu li a:hover {
+    color: rgb(240, 150, 16); /* Cambia el color del enlace al pasar el cursor */
+}
+
+main {
+    padding: 2rem;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.filter-section form {
+    display: inline-block;
+    text-align: left;
+}
+
+.filter-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.filter-section select,
+.filter-section input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.filter-section button {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #ff6f61;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-section button:hover {
+    background-color: #e65b50;
+}
+
+.dog-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.dog-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.dog-card:hover {
+    transform: translateY(-5px);
+}
+
+.dog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.dog-card h3 {
+    margin: 0;
+    padding: 1rem;
+    background-color: #ff6f61;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    margin-top: auto;
+}
