@@ -15,13 +15,7 @@ const SIZE_CATEGORIES = {
         'german shepherd', 'golden retriever', 'labrador retriever', 
         'rottweiler', 'doberman', 'bernese mountain dog', 'great dane', 'siberian husky'
     ]
-};
-// Lista de nombres comunes para perros
-const DOG_NAMES = [
-    'Luna', 'Thor', 'Nala', 'Kira', 'Coco', 'Max', 'Bruno', 'Lola', 'Simba', 'Rocky',
-    'Bella', 'Charlie', 'Milo', 'Lucy', 'Buddy', 'Daisy', 'Bailey', 'Sadie', 'Toby', 'Riley'
-];
-
+}
 
 // Función para obtener la lista de razas
 async function fetchDogBreeds() {
@@ -36,30 +30,6 @@ async function fetchDogBreeds() {
         console.error(error);
         return [];
     }
-}
-function getRandomDogName() {
-    const randomIndex = Math.floor(Math.random() * DOG_NAMES.length);
-    return DOG_NAMES[randomIndex];
-}
-function getRandomDogAge() {
-    return Math.floor(Math.random() * 15) + 1; // Genera un número entre 1 y 15
-}
-function capitalizeBreedName(breed) {
-    return breed.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-}
-
-function createDogCard(breed, image) {
-    const dogName = getRandomDogName();
-    const dogAge = getRandomDogAge();
-    const card = document.createElement('div');
-    card.classList.add('dog-card');
-    card.innerHTML = `
-        <img src="${image}" alt="${breed}">
-        <h3>${capitalizeBreedName(breed)}</h3>
-        <p>Nombre: ${dogName}</p>
-        <p>Edad: ${dogAge} años</p>
-    `;
-    return card;
 }
 
 // Función para obtener una imagen de una raza específica
@@ -139,10 +109,7 @@ async function renderDogs(filterSize, breedFilter = '') {
 function createDogCard(breed, image) {
     const card = document.createElement('div');
     card.classList.add('dog-card');
-    card.innerHTML = `
-        <img src="${image}" alt="${breed}">
-        <h3>${breed}</h3>
-    `;
+    card.innerHTML = `<img src="${image}" alt="${breed}"><h3>${breed}</h3>`;
     return card;
 }
 
